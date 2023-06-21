@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 const Help=()=>{
     return (
     <>
+    <React.Fragment>
     <div>
 	
 	<div id="preloader">
@@ -10,7 +11,7 @@ const Help=()=>{
             </div>
             </div>
 				
-	<header class="header clearfix element_to_stick">
+    <header class="header clearfix element_to_stick">
 	    <div class="layer"></div>
 	    <div class="container">
 	       <div class="logo">
@@ -50,10 +51,8 @@ const Help=()=>{
 	        </nav>
 	    </div>
 	</header>
-	
-	<main>
-
-	    <div class="hero_single inner_pages background-image" data-background="url(assets/img/hero_general.jpg)">
+<main>
+        <div class="hero_single inner_pages background-image" data-background="url(assets/img/hero_general.jpg)">
 	        <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
 	            <div class="container">
 	                <div class="row justify-content-center">
@@ -140,30 +139,28 @@ const Help=()=>{
 	                    <li><Link to="#0"><i class="bi bi-file-earmark-text"></i>Et dicit vidisse epicurei pri</Link></li>
 	                </ul>
 	            </div>
-	        </div>
 	    </div>
-	</main>
-
-	<footer>
+</main>
+<footer>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<h3>Quick Links</h3>
 					<div class="links">
 						<ul>
-							<li><List to="/catalog">Explore</List></li>
-							<li><List to="/login">Login</List></li>
-							<li><List to="/register">Register</List></li>
-													</ul>
+							<li><Link to="/catalog">Explore</Link></li>
+							<li><Link to="/login">Login</Link></li>
+							<li><Link to="/register">Register</Link></li>
+						</ul>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<h3>Snappcoins</h3>
 					<div class="links">
 						<ul>
-							<li><link to="connect-wallet.html">Connect Wallet</link></li>
-							<li><link to="help.html">Faq</link></li>
-							<li><link to="become-partner.html">Become a Partner</link></li>
+							<li><Link to="connect-wallet.html">Connect Wallet</Link></li>
+							<li><Link to="help.html">Faq</Link></li>
+							<li><Link to="become-partner.html">Become a Partner</Link></li>
 						</ul>
 					</div>
 				</div>
@@ -171,9 +168,9 @@ const Help=()=>{
 					<h3>Resources</h3>
 					<div class="links">
 						<ul>
-							<li><link to="#">Community</link></li>
-							<li><link to="#">How it Works</link></li>
-							<li><link to="#">Latest Products</link></li>
+							<li><Link to="#">Community</Link></li>
+							<li><Link to="#">How it Works</Link></li>
+							<li><Link to="#">Latest Products</Link></li>
 						</ul>
 					</div>
 				</div>
@@ -183,17 +180,17 @@ const Help=()=>{
 							<div id="message-newsletter"></div>
 							<form method="post" name="newsletter_form" id="newsletter_form">
 								<div class="form-group">
-									<input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Your email">
+									<input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Your email"/>
 									<button type="submit" id="submit-newsletter"><i class="bi bi-chevron-right"></i></button>
 								</div>
 							</form>
 						</div>
 						<div class="follow_us">
 							<ul>
-								<li><link to="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/twitter_icon.svg" alt="" class="lazy"></link></li>
-								<li><link to="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/facebook_icon.svg" alt="" class="lazy"></link></li>
-								<li><link to="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/instagram_icon.svg" alt="" class="lazy"></link></li>
-								<li><link to="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/youtube_icon.svg" alt="" class="lazy"></link></li>
+								<li><Link to="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/twitter_icon.svg" alt="" class="lazy"/></Link></li>
+								<li><Link to="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/facebook_icon.svg" alt="" class="lazy"/></Link></li>
+								<li><Link to="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/instagram_icon.svg" alt="" class="lazy"/></Link></li>
+								<li><Link to="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/youtube_icon.svg" alt="" class="lazy"/></Link></li>
 							</ul>
 						</div>
 					
@@ -218,7 +215,7 @@ const Help=()=>{
 				</div>
 				<div class="col-md-6">
 					<ul class="additional_links">
-						<li><link to="#">Terms and conditions</link></li>
+						<li><Link to="#">Terms and conditions</Link></li>
 						<li>© 2023 Snappcoins</li>
 					</ul>
 				</div>
@@ -228,10 +225,11 @@ const Help=()=>{
 
 
 	<div id="toTop"></div>
-	
-
-</div>
+    </div>
+</React.Fragment>
     </>
     )
 }
+
+
 export default Help ;
