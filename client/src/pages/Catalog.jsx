@@ -1,33 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Profiler } from 'react';
 import { Link } from 'react-router-dom';
 import Product from '../components/Product';
-import useFetch from "../hooks/useFetch";
+import axios from "axios";
 
 
 
 const Catalog = (props) => {
-	const [products, setProducts] = useState([]);
+	const [products , setProducts ] = useState([])
 
-	const productConfig = {
-		url: '/merchandise/getall',
-		method: 'get',
-	};
-
-	const fetchProd = useFetch();
 	useEffect(() => {
 		const fetchData = async () => {
 		  try {
-			const productData = await fetchProd(productConfig);
-			setProducts(productData.merchandises);
-		  } catch (err) {
-			console.log(err);
+			const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall');
+			setProducts(response_prod.data.merchandises);
+		  } catch (error) {
+			console.error(error);
 		  }
 		};
-	  
+	
 		fetchData();
 	  }, []);
+	
 	  
-
 
 	return (
 		<>
@@ -175,10 +169,9 @@ const Catalog = (props) => {
 
 						<div className="col-lg-9">
 							<div className="row">
-								{products}
-								{products.map((product) => {
-									<Product key={product.id} {...product} />
-								})}
+								{products.map((product) => 
+								 	<Product key={product._id} title={product.title} price={product.price} count={product.count}  desc={product.description} brand={product.brand} />
+								)}
 							</div>
 
 							<div className="pagination_fg mb-4">

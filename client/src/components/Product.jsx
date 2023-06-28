@@ -9,7 +9,7 @@ function Product(props) {
                     <img src="img/items/item-1-placeholder.png" data-src="img/items/item-12.jpg" className="lazy" alt="" width="533" height="400" />
                     <Link to="detail-page.html" className="strip_info">
                         <div className="item_title">
-                            <span className="badge bg-primary">3.25  snapps</span>
+                            <span className="badge bg-primary">{ props.price} snapps</span>
                         </div>
                     </Link>
                 </figure>
@@ -20,12 +20,17 @@ function Product(props) {
                                 <figure>
                                     <img src="img/avatar-placeholder.png" data-src="img/avatar2.jpg" alt="" className="lazy" width="100" height="100" /></figure>
                             </div>
-                            <h6>JBL Pods</h6>
+                            <h6>{props.title}</h6>
                         </Link>
                     </li>
+                    <li></li>
                     <li>
-                        <Link to="#0" className="wish_bt"><i className="bi bi-heart-fill"></i></Link> 50
+                        <Link to="#0" className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
                     </li>
+                </ul>
+                <ul>
+                    <li>{props.desc}</li>
+                    <li>{props.brand}</li>
                 </ul>
             </div>
         </div>

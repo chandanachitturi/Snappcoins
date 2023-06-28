@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 
 
+
 exports.getMerchandises = async (req, res) => {
     try {
         const merchandises = await Merchandise.find({})

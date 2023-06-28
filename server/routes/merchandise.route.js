@@ -3,6 +3,6 @@ const { getMerchandises, getImage } = require("../controllers/merchandiseControl
 const router = express.Router();
 
 router.get('/getall',getMerchandises)
-router.get('/img/:id',getImage)
+router.get('/img:id',getImage)
 
 module.exports = router;
