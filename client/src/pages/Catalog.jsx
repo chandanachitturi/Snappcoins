@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import Product from '../components/Product';
 import axios from "axios";
 import Pagination from '../components/Pagination';
+import Header from './Header';
+import Filter from './Filter';
 
 const Catalog = (props) => {
-	const [products , setProducts ] = useState([])
+	const [products, setProducts] = useState([])
 	const [perpage, setPerpage] = useState([]);
 
 
@@ -16,93 +18,73 @@ const Catalog = (props) => {
 		console.log(startIndex);
 		console.log(endIndex);
 		setPerpage(products.slice(startIndex, endIndex));
-	  }
+	}
 
 	useEffect(() => {
 		const fetchData = async () => {
-		  try {
-			const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall');
-			//const total = response_prod.headers.get("x-total-count");
-			setProducts(response_prod.data.merchandises);
-			setPerpage(response_prod.data.slice(0,9));
-		  } catch (error) {
-			console.error(error);
-		  }
+			try {
+				const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall');
+				//const total = response_prod.headers.get("x-total-count");
+				setProducts(response_prod.data.merchandises);
+				setPerpage(response_prod.data.slice(0, 9));
+			} catch (error) {
+				console.error(error);
+			}
 		};
-	
+
 		fetchData();
-	  }, []);
+	}, []);
 
 
 
 	return (
 		<>
-
-
-			<header className="header_in clearfix">
-				<div className="layer"></div>
-				<div className="container">
-					<div className="logo">
-						<Link to="/">
-							<img src="assets/img/logo.svg" alt="" width="170" height="35" className="dark" />
-							<img src="assets/img/logo-light-mode.svg" alt="" width="170" height="35" className="light" />
-						</Link>
-					</div>
-					<ul className="top_menu">
-						<li>
-							<span className="color_mode_bt">
-								<input id="theme_toggle" type="checkbox" name="theme_toggle" />
-								<label for="theme_toggle"></label>
-							</span>
-						</li>
-						<li><Link to="/login" className="btn_access">Log In</Link></li>  <li><Link to="/connect" className="btn_access">Connect Snappcoins</Link></li>
-					</ul>
-					<Link to="#0" className="open_close">
-						<i className="bi bi-list"></i><span>Menu</span>
-					</Link>
-					<nav className="main-menu">
-						<div id="header_menu">
-							<Link to="#0" className="open_close">
-								<i className="bi bi-x"></i>
-							</Link>
-							<Link to="/" className="logo_menu">
-								<img src="assets/img/logo-placeholder.png" data-src="img/logo.svg" alt="" width="120" height="30" className="dark lazy" />
-								<img src="assets/img/logo-placeholder.png" data-src="img/logo-light-mode.svg" alt="" width="120" height="30" className="light lazy" />
-							</Link>
-						</div>
-						<ul>
-							<li className="submenu">
-								<Link to="/" className="show-submenu">Home</Link></li>
-							<li className="submenu"><Link to="/catalog" className="show-submenu">Explore</Link></li>
-						</ul>
-					</nav>
-				</div>
-			</header>
+			<Header />
 			<main>
+				{/* <div class="container mx-5 my-3 text-center">
+					<div class="row">
+						<div className='col-6 d-flex justify-content-start'>
+							<div class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Dropdown button
+								</button>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="#">Action</a></li>
+									<li><a class="dropdown-item" href="#">Another action</a></li>
+									<li><a class="dropdown-item" href="#">Something else here</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-6 d-flex justify-content-end">
+							<div class="search_bar_list">
+								<input type="text" class="form-control" placeholder="Search again..." />
+							</div>
+						</div>
+					</div>
+				</div> */}
 
-				<div className="filters_full version_2">
-					<div className="container clearfix">
-						<div className="pb-3 clearfix">
-							<div className="custom_select">
+				<div class="filters_full version_2">
+					<div class="container clearfix">
+						<div class="pb-3 clearfix">
+							<div class="custom_select">
 								<select name="sort" id="sort">
 									<option value="popularity" selected="selected">Sort by Popularity</option>
 									<option value="rating">Sort by Newness</option>
 									<option value="date">Sort by Trending</option>
 								</select>
 							</div>
-							<Link to="#0" className="open_filters btn_filters"><i className="bi bi-filter"></i><span>Filters</span></Link>
-							<div className="search_bar_list">
-								<input type="text" className="form-control" placeholder="Search again..." />
+							<a href="#0" class="open_filters btn_filters"><i class="bi bi-filter"></i><span>Filters</span></a>
+							<div class="search_bar_list">
+								<input type="text" class="form-control" placeholder="Search again..." />
 							</div>
-							<Link className="btn_search_mobile btn_filters" data-bs-toggle="collapse" to="#collapseSearch"><i className="bi bi-search"></i></Link>
+							<a class="btn_search_mobile btn_filters" data-bs-toggle="collapse" href="#collapseSearch"><i class="bi bi-search"></i></a>
 						</div>
 					</div>
-					<div className="collapse" id="collapseSearch">
-						<div className="search_bar_list">
-							<input type="text" className="form-control" placeholder="Search again..." />
+					<div class="collapse" id="collapseSearch">
+						<div class="search_bar_list">
+							<input type="text" class="form-control" placeholder="Search again..." />
 						</div>
 					</div>
-
 				</div>
 
 
@@ -120,69 +102,27 @@ const Catalog = (props) => {
 
 					<div className="row">
 
-						<aside className="col-lg-3" id="sidebar_fixed">
-							<div className="filter_col">
-								<div className="inner_bt"><Link to="#" className="open_filters"><i className="bi bi-x"></i></Link></div>
-								<div className="filter_type">
-									<h4><Link to="#filter_1" data-bs-toggle="collapse" className="opened">Categories</Link></h4>
-									<div className="collapse show" id="filter_1">
-										<ul>
-											<li>
-												<label className="container_check">Art <small>112</small>
-													<input type="checkbox" />
-													<span className="checkmark"></span>
-												</label>
-											</li>
-											<li>
-												<label className="container_check">Electronics <small>90</small>
-													<input type="checkbox" />
-													<span className="checkmark"></span>
-												</label>
-											</li>
-											<li>
-												<label className="container_check">Stationary <small>140</small>
-													<input type="checkbox" />
-													<span className="checkmark"></span>
-												</label>
-											</li>
-											<li>
-												<label className="container_check">Music <small>43</small>
-													<input type="checkbox" />
-													<span className="checkmark"></span>
-												</label>
-											</li>
-											<li>
-												<label className="container_check">Wellness <small>23</small>
-													<input type="checkbox" />
-													<span className="checkmark"></span>
-												</label>
-											</li>
-										</ul>
-									</div>
-
-								</div>
-
-
-								<div className="filter_type">
-									<h4><Link to="#filter_3" data-bs-toggle="collapse" className="closed">Snapps</Link></h4>
-									<div className="collapse" id="filter_3">
-									<div className="range_input">Price range from 0 to <span></span>  snapps</div>
-										<div className="mb-4"><input type="range" min="1" max="5" step="0.2" value="4" data-orientation="horizontal" /></div>
-									</div>
-								</div>
-								<div className="buttons">
-									<Link to="#0" className="btn_1 full-width outline">Filter</Link>
-								</div>
-							</div>
-						</aside>
+						< Filter />
 
 						<div className="col-lg-9">
-								<div className='row'>
-									{products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} />)}
+							<div className='row'>
+								{products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} />)}
+							</div>
+							<div className='text-center'>
+								<div class="pagination_fg mb-4">
+									<a href="#">«</a>
+									<a href="#" class="active">1</a>
+									<a href="#">2</a>
+									<a href="#">3</a>
+									<a href="#">4</a>
+									<a href="#">5</a>
+									<a href="#">»</a>
 								</div>
 							</div>
+						</div>
 
-						
+
+
 
 					</div>
 				</div>
