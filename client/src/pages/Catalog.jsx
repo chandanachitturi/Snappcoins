@@ -1,18 +1,30 @@
-import React, { useState, useEffect, Profiler } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Product from '../components/Product';
 import axios from "axios";
-
-
+import Pagination from '../components/Pagination';
 
 const Catalog = (props) => {
 	const [products , setProducts ] = useState([])
+	const [perpage, setPerpage] = useState([]);
+
+
+	const pageHandler = (pageNumber) => {
+
+		const startIndex = (pageNumber - 1) * 3;
+		const endIndex = pageNumber * 3;
+		console.log(startIndex);
+		console.log(endIndex);
+		setPerpage(products.slice(startIndex, endIndex));
+	  }
 
 	useEffect(() => {
 		const fetchData = async () => {
 		  try {
 			const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall');
+			//const total = response_prod.headers.get("x-total-count");
 			setProducts(response_prod.data.merchandises);
+			setPerpage(response_prod.data.slice(0,9));
 		  } catch (error) {
 			console.error(error);
 		  }
@@ -20,8 +32,8 @@ const Catalog = (props) => {
 	
 		fetchData();
 	  }, []);
-	
-	  
+
+
 
 	return (
 		<>
@@ -154,13 +166,10 @@ const Catalog = (props) => {
 								<div className="filter_type">
 									<h4><Link to="#filter_3" data-bs-toggle="collapse" className="closed">Snapps</Link></h4>
 									<div className="collapse" id="filter_3">
-										<div className="range_input">Price range from 0 to <span></span>  snapps</div>
+									<div className="range_input">Price range from 0 to <span></span>  snapps</div>
 										<div className="mb-4"><input type="range" min="1" max="5" step="0.2" value="4" data-orientation="horizontal" /></div>
 									</div>
 								</div>
-
-
-
 								<div className="buttons">
 									<Link to="#0" className="btn_1 full-width outline">Filter</Link>
 								</div>
@@ -168,23 +177,29 @@ const Catalog = (props) => {
 						</aside>
 
 						<div className="col-lg-9">
-							<div className="row">
-								{products.map((product) => 
-								 	<Product key={product._id} title={product.title} price={product.price} count={product.count}  desc={product.description} brand={product.brand} />
-								)}
+								{perpage.length>=0?
+								<div >
+									{perpage.map((product,_id) => (
+									//<div className='col-lg-9'>
+								 	<Product 
+									key={product._id} 
+									title={product.title} 
+									price={product.price}
+									img={product.image} 
+									count={product.count}  
+									desc={product.description} 
+									brand={product.brand} 
+									/>
+							    // </div>
+							   ))}
+							   <br/>
+							   <Pagination data={products} pageHandler={pageHandler}/>
+							   </div>
+							   :
+								<p>Page not loaded</p>}
 							</div>
 
-							<div className="pagination_fg mb-4">
-								<Link to="#">«</Link>
-								<Link to="#" className="active">1</Link>
-								<Link to="#">2</Link>
-								<Link to="#">3</Link>
-								<Link to="#">4</Link>
-								<Link to="#">5</Link>
-								<Link to="#">»</Link>
-							</div>
-
-						</div>
+						
 
 					</div>
 				</div>
