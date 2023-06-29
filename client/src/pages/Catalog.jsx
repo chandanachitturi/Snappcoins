@@ -5,6 +5,8 @@ import axios from "axios";
 import Pagination from '../components/Pagination';
 import Header from './Header';
 import Filter from './Filter';
+import PageComp from './PageComp';
+import FilterUp from './FilterUp';
 
 const Catalog = (props) => {
 	const [products, setProducts] = useState([])
@@ -35,58 +37,45 @@ const Catalog = (props) => {
 		fetchData();
 	}, []);
 
+	//pagination 
+	const [currentPage, setCurrentPage] = useState(1);
+	const itemsPerPage = 6; // change the value here sasi
 
+	// pagination logic
+	const pagelength = products.length / itemsPerPage
+	const start = 1;
+	const end = pagelength + 1;
+	const pages = ["<<"]; // represents  the starting page
+
+	for (var i = start; i <= end; i++) {
+		pages.push(i);
+	}
+
+	pages.push(">>") // represents the ending page
+
+	const handleClick = (e) => {
+		e.preventDefault();
+		var temppage = e.target.innerHTML
+		if (temppage === "&lt;&lt;") {
+			setCurrentPage(1)
+		}
+		else if (temppage === "&gt;&gt;") {
+			setCurrentPage(pages[pages.length - 2])
+		}
+		else {
+			setCurrentPage(temppage)
+		}
+
+	}
+	const indexOfLastItem = currentPage * itemsPerPage;
+	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+	const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
 
 	return (
 		<>
 			<Header />
 			<main>
-				{/* <div class="container mx-5 my-3 text-center">
-					<div class="row">
-						<div className='col-6 d-flex justify-content-start'>
-							<div class="dropdown">
-								<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-									Dropdown button
-								</button>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li><a class="dropdown-item" href="#">Something else here</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-6 d-flex justify-content-end">
-							<div class="search_bar_list">
-								<input type="text" class="form-control" placeholder="Search again..." />
-							</div>
-						</div>
-					</div>
-				</div> */}
-
-				<div class="filters_full version_2">
-					<div class="container clearfix">
-						<div class="pb-3 clearfix">
-							<div class="custom_select">
-								<select name="sort" id="sort">
-									<option value="popularity" selected="selected">Sort by Popularity</option>
-									<option value="rating">Sort by Newness</option>
-									<option value="date">Sort by Trending</option>
-								</select>
-							</div>
-							<a href="#0" class="open_filters btn_filters"><i class="bi bi-filter"></i><span>Filters</span></a>
-							<div class="search_bar_list">
-								<input type="text" class="form-control" placeholder="Search again..." />
-							</div>
-							<a class="btn_search_mobile btn_filters" data-bs-toggle="collapse" href="#collapseSearch"><i class="bi bi-search"></i></a>
-						</div>
-					</div>
-					<div class="collapse" id="collapseSearch">
-						<div class="search_bar_list">
-							<input type="text" class="form-control" placeholder="Search again..." />
-						</div>
-					</div>
-				</div>
-
+				<FilterUp />
 
 				<div className="container margin_30_40">
 					<div className="page_header">
@@ -97,7 +86,7 @@ const Catalog = (props) => {
 								<li>Page active</li>
 							</ul>
 						</div>
-						<h1>All:</h1><span> 814 found</span>
+						<h1>All :</h1><span> {products.length} found</span>
 					</div>
 
 					<div className="row">
@@ -106,18 +95,14 @@ const Catalog = (props) => {
 
 						<div className="col-lg-9">
 							<div className='row'>
-								{products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} />)}
+								{currentItems.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} />)}
 							</div>
 							<div className='text-center'>
-								<div class="pagination_fg mb-4">
-									<a href="#">«</a>
-									<a href="#" class="active">1</a>
-									<a href="#">2</a>
-									<a href="#">3</a>
-									<a href="#">4</a>
-									<a href="#">5</a>
-									<a href="#">»</a>
-								</div>
+							<div className="pagination_fg mb-4">
+                            {pages.map((i) => {
+                                return <PageComp key={i} pagenum={i} handleClick={handleClick} isActive={currentPage == i ? true : false} />
+                            })}
+                        </div>
 							</div>
 						</div>
 

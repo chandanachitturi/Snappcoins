@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Filter() {
+function Filter(props) {
     return (
         <aside class="col-lg-3" id="sidebar_fixed">
             <div class="filter_col">
