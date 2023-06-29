@@ -177,26 +177,9 @@ const Catalog = (props) => {
 						</aside>
 
 						<div className="col-lg-9">
-								{perpage.length>=0?
-								<div >
-									{perpage.map((product,_id) => (
-									//<div className='col-lg-9'>
-								 	<Product 
-									key={product._id} 
-									title={product.title} 
-									price={product.price}
-									img={product.image} 
-									count={product.count}  
-									desc={product.description} 
-									brand={product.brand} 
-									/>
-							    // </div>
-							   ))}
-							   <br/>
-							   <Pagination data={products} pageHandler={pageHandler}/>
-							   </div>
-							   :
-								<p>Page not loaded</p>}
+								<div className='row'>
+									{products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} />)}
+								</div>
 							</div>
 
 						

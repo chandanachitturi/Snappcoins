@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom' ;
 
 function Product(props) {
     return (
-        <div className="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+        <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
             <div className="strip">
                 <figure> <Link to="#modal-dialog" className="btn_1 modal_popup">Snapp Now!</Link>
                     <img src="img/items/item-1-placeholder.png" data-src="img/items/item-12.jpg" className="lazy" alt="" width="533" height="400" />
