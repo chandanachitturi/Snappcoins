@@ -6,11 +6,15 @@ function FilterUp() {
             <div className="container clearfix">
                 <div className="pb-3 clearfix">
                     <div className="custom_select">
-                        <select name="sort" id="sort">
-                            <option value="popularity" selected="selected">Sort by Popularity</option>
-                            <option value="rating">Sort by Newness</option>
-                            <option value="date">Sort by Trending</option>
-                        </select>
+                        <div className="nice-select" tabindex="0">
+                            <span className="current">Sort by Popularity</span>
+                            <ul className="list">
+                                <li data-value="popularity" className="option selected focus">Sort by Popularity</li>
+                                <li data-value="rating" className="option">Sort by Newness</li>
+                                <li data-value="date" className="option">Sort by Trending</li>
+                            </ul>
+
+                        </div>
                     </div>
                     <a href="#0" className="open_filters btn_filters"><i className="bi bi-filter"></i><span>Filters</span></a>
                     <div className="search_bar_list">
