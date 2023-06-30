@@ -10,66 +10,74 @@ import FilterUp from './FilterUp';
 
 const Catalog = (props) => {
 	const [products, setProducts] = useState([])
-	const [perpage, setPerpage] = useState([]);
-
-
-	const pageHandler = (pageNumber) => {
-
-		const startIndex = (pageNumber - 1) * 3;
-		const endIndex = pageNumber * 3;
-		console.log(startIndex);
-		console.log(endIndex);
-		setPerpage(products.slice(startIndex, endIndex));
-	}
-
+	const [total_count, setCount] = useState(0)
+	//pagination 
+	const [currentPage, setCurrentPage] = useState(1);
+	const itemsPerPage = 6; // change the value here sasi
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall');
+
+				const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall', { params: { pagenum: currentPage, size: itemsPerPage } });
 				//const total = response_prod.headers.get("x-total-count");
 				setProducts(response_prod.data.merchandises);
-				setPerpage(response_prod.data.slice(0, 9));
+				setCount(response_prod.data.total_count)
+				console.log("hitted")
 			} catch (error) {
 				console.error(error);
 			}
 		};
 
 		fetchData();
-	}, []);
-
-	//pagination 
-	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 6; // change the value here sasi
+	}, [currentPage, total_count]);
 
 	// pagination logic
-	const pagelength = products.length / itemsPerPage
+	const pagelength = Math.ceil(total_count / itemsPerPage)
 	const start = 1;
-	const end = pagelength + 1;
-	const pages = ["<<"]; // represents  the starting page
+	const end = pagelength;
+	const pages = ["<<", "<"]; // represents  the starting page
 
 	for (var i = start; i <= end; i++) {
 		pages.push(i);
 	}
 
-	pages.push(">>") // represents the ending page
+	pages.push(">") // represents the ending page
+	pages.push(">>")
 
 	const handleClick = (e) => {
 		e.preventDefault();
 		var temppage = e.target.innerHTML
-		if (temppage === "&lt;&lt;") {
+		if (temppage === "&lt;") {
+			setCurrentPage((prev) => {
+				if (prev !== 1) {
+					return prev - 1
+				}
+				return prev
+			})
+		}
+		else if (temppage === "&lt;&lt;") {
 			setCurrentPage(1)
 		}
+		else if (temppage === "&gt;") {
+			setCurrentPage((prev) => {
+				if (prev !== end) {
+					return prev + 1
+				}
+				return prev
+			})
+		}
 		else if (temppage === "&gt;&gt;") {
-			setCurrentPage(pages[pages.length - 2])
+			setCurrentPage(pages[pages.length - 3])
 		}
 		else {
 			setCurrentPage(temppage)
 		}
 
 	}
-	const indexOfLastItem = currentPage * itemsPerPage;
-	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-	const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+
+	// const indexOfLastItem = currentPage * itemsPerPage;
+	// const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+	// const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
 
 	return (
 		<>
@@ -95,14 +103,14 @@ const Catalog = (props) => {
 
 						<div className="col-lg-9">
 							<div className='row'>
-								{currentItems.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} />)}
+								{products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} />)}
 							</div>
 							<div className='text-center'>
-							<div className="pagination_fg mb-4">
-                            {pages.map((i) => {
-                                return <PageComp key={i} pagenum={i} handleClick={handleClick} isActive={currentPage == i ? true : false} />
-                            })}
-                        </div>
+								<div className="pagination_fg mb-4">
+									{pages.map((i) => {
+										return <PageComp key={i} pagenum={i} handleClick={handleClick} isActive={currentPage == i ? true : false} />
+									})}
+								</div>
 							</div>
 						</div>
 
