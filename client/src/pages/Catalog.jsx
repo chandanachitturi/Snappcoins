@@ -103,7 +103,7 @@ const Catalog = (props) => {
 
 						<div className="col-lg-9">
 							<div className='row'>
-								{products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} />)}
+								{products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} />)}
 							</div>
 							<div className='text-center'>
 								<div className="pagination_fg mb-4">

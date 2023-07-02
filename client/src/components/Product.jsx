@@ -1,18 +1,33 @@
-import React from "react";
-import {Link} from 'react-router-dom' ;
+import React , {useState , useEffect} from "react";
+import { Link } from 'react-router-dom';
+import Loader from "./Loader";
 
 function Product(props) {
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [imageSrc, setImageSrc] = useState("");
+
+    useEffect(() => {
+        setImageSrc(
+            props.img
+                ? `${process.env.REACT_APP_URL}/api/merchandise/img${props.img}`
+                : "assets/img/items/default-prod.png"
+        );
+    }, [props.img]);
+
+    console.log(imageSrc)
     return (
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
             <div className="strip">
-                <figure> <Link to="#modal-dialog" className="btn_1 modal_popup">Snapp Now!</Link>
-                    <img src="assets/img/items/default-prod.png" data-src="img/items/item-12.jpg" className="lazy" alt="" width="533" height="400" />
+                <figure >
+                    {!imageLoaded && <div > <Loader /> </div>}<Link to="#modal-dialog" className={`btn_1 modal_popup lazy ${imageLoaded ? "" : "visually-hidden"} `}>Snapp Now!</Link>
+                    <img src={imageSrc} data-src="img/items/item-12.jpg" className={`lazy ${imageLoaded ? "" : "visually-hidden"}`} alt="" width="533" height="400" onLoad={() => setImageLoaded(true)}
+                        onError={() => setImageLoaded(false)} />
                     <Link to="detail-page.html" className="strip_info">
                         <div className="item_title">
-                            <span className="badge bg-primary">{ props.price} snapps</span>
+                            <span className="badge bg-primary">{props.price} snapps</span>
                         </div>
                     </Link>
-                </figure>
+                </figure >
                 <ul>
                     <li>
                         <Link to="author.html" className="author">
@@ -20,7 +35,7 @@ function Product(props) {
                                 <figure>
                                     <img src="assets/img/items/default-prof.png" data-src="img/avatar2.jpg" alt="" className="lazy" width="100" height="100" /></figure>
                             </div>
-                            <h6>{props.title}</h6>
+                            <h6 className="">{props.title}</h6>
                         </Link>
                     </li>
                     <li></li>
@@ -29,8 +44,8 @@ function Product(props) {
                     </li>
                 </ul>
                 <ul>
-                    <li>{props.desc}</li>
-                    <li>{props.brand}</li>
+                    <li className="">{props.desc.slice(0,20) + "..."}</li>
+                    <li className="text-uppercase link">{props.brand}</li>
                 </ul>
             </div>
         </div>
