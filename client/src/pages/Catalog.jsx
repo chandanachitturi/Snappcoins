@@ -49,7 +49,7 @@ const Catalog = (props) => {
 		var temppage = e.target.innerHTML
 		if (temppage === "&lt;") {
 			setCurrentPage((prev) => {
-				if (prev !== 1) {
+				if (prev > 1) {
 					return prev - 1
 				}
 				return prev
@@ -60,7 +60,7 @@ const Catalog = (props) => {
 		}
 		else if (temppage === "&gt;") {
 			setCurrentPage((prev) => {
-				if (prev !== end) {
+				if (prev < end) {
 					return prev + 1
 				}
 				return prev

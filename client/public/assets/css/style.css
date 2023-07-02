@@ -10228,3 +10228,7 @@ Author URI:
   .dark-theme .popup_content .wrapper .light {
     display: none;
   }
+
+  .bg-primary {
+    background-color: #FF0071;
+  }

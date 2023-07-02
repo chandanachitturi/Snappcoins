@@ -7,11 +7,13 @@ const gfsPromise = require('../config/gridfsDb')
 
 exports.getMerchandises = async (req, res) => {
     try {
-        const { size, pagenum } = req.query
+        const { size, pagenum , category } = req.query
+        let cat;
+        filter = category ? category : {}
         var query = {}
         query.skip = size * (pagenum - 1)
         query.limit = size
-        const merchandises = await Merchandise.find({},{},query).then((data) => {
+        const merchandises = await Merchandise.find(filter,{},query).then((data) => {
             return data
         })
         const count = await Merchandise.count({}).then((data) => {
