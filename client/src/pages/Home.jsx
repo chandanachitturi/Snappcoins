@@ -5,13 +5,13 @@ const Home =() =>{
         <>
         
 	
-	<div id="preloader"><div data-loader="circle-side"></div></div>
+	{/* <div id="preloader"><div data-loader="circle-side"></div></div> */}
 				
 	<header className="header clearfix element_to_stick">
 	    <div className="layer"></div>
 	    <div className="container">  
 	       <div className="logo">
-	            <Link to="/login">
+	            <Link to="/">
 	                <img src="assets/img/logo.svg" alt="" width="170" height="35" className="dark" />
 	                <img src="assets/img/logo-light-mode.svg" alt="" width="170" height="35" className="light" />
 	            </Link>
@@ -23,7 +23,17 @@ const Home =() =>{
 						<label for="theme_toggle"></label>
 	        		</span>
 				</li>
-	            <li><Link to="login" className="btn_access">Log In</Link> </li>  <li><Link to="connect" className="btn_access">Connect Snappcoins</Link></li>
+	            
+				 <li><Link to="connect" className="btn_access">Connect Snappcoins</Link></li>
+                 <li><div className="nice-select"><div className="btn_access">
+                        <span className="current">Login</span></div>
+					     <ul className="list">
+						<li className="option"><Link >Merchant</Link></li>
+						<li className="option"><Link >Gamer</Link></li>
+						</ul>
+						
+						</div> </li> 
+
 	        </ul>
 	        <Link to="#0" className="open_close">
 	            <i className="bi bi-list"></i><span>Menu</span>
@@ -34,8 +44,8 @@ const Home =() =>{
 	                    <i className="bi bi-x"></i>
 	                </Link>
 	                 <Link to="/" className="logo_menu">
-	                	<img src="assets/img/logo-placeholder.png" data-src="assets/img/logo.svg" alt="" width="120" height="30" className="dark lazy" />
-	                	<img src="assets/img/logo-placeholder.png" data-src="assets/img/logo-light-mode.svg" alt="" width="120" height="30" className="light lazy" />
+	                	<img src="https://distil.in/demo/snappcoins/img/logo.svg" data-src="assets/img/logo.svg" alt="" width="120" height="30" className="dark lazy" />
+	                	<img src="https://distil.in/demo/snappcoins/img/logo-placeholder.png" data-src="assets/img/logo-light-mode.svg" alt="" width="120" height="30" className="light lazy" />
 	                </Link>
 	            </div>
 	            <ul>
@@ -68,11 +78,11 @@ const Home =() =>{
 	                                    <input type="submit" value="Find" />
 	                                </div>
 	                            </div>
-	                            <div className="search_trends">
+	                            <div className="search_trends" style={{display:"flex",justifyContent:"center"}}>
 	                                <h5>Trending:</h5>
-	                                <ul>
-	                                    <li><Link to="#0">Art</Link></li>
-	                                    <li><Link to="#0">Games</Link></li>
+	                                <ul style={{listStyleType:"none", display:"flex"}}>
+	                                    <li><Link to="#0">Art ,</Link></li>
+	                                    <li><Link to="#0">Games ,</Link></li>
 	                                    <li><Link to="#0">Photo</Link></li>
 	                                </ul>
 	                            </div>
@@ -93,11 +103,11 @@ const Home =() =>{
 	        </div>
 	    
 
-	        <div className="owl-carousel owl-theme featured_carousel" data-cue="slideInUp">
+	        <div className="owl-carousel owl-theme featured_carousel">
 	            <div className="item">
 	                <div className="strip">
 	                    <figure> 
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-1.jpg" className="owl-lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/item-1-placeholder.png" data-src="assets/img/items/item-1.jpg" className="owl-lazy" alt="" width="533" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                               
@@ -110,7 +120,7 @@ const Home =() =>{
 	                            <Link to="author.html" className="author">
 	                                <div className="author_thumb veryfied"><i className="bi bi-check"></i>
 	                                    <figure>
-	                                        <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar2.jpg" alt="" className="owl-lazy" width="100" height="100" />
+	                                        <img src="https://distil.in/demo/snappcoins/img/avatar2.jpg" data-src="assets/img/avatar2.jpg" alt="" className="owl-lazy" width="100" height="100" />
 	                                    </figure>
 	                                </div>
 	                                <h6>JBL Noise Cancellation Pods</h6>
@@ -126,7 +136,7 @@ const Home =() =>{
 	            <div className="item">
 	                <div className="strip">
 	                    <figure> 
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-3.jpg" className="owl-lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/item-3.png" data-src="assets/img/items/item-3.jpg" className="owl-lazy" alt="" width="533" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                               
@@ -139,7 +149,7 @@ const Home =() =>{
 	                            <Link to="author.html" className="author">
 	                                <div className="author_thumb veryfied"><i className="bi bi-check"></i>
 	                                    <figure>
-	                                        <img src="assets/img/avatar-placeholder.png" data-src="img/avatar3.jpg" alt="" className="owl-lazy" width="100" height="100" />
+	                                        <img src="https://distil.in/demo/snappcoins/img/avatar3.png" data-src="img/avatar3.jpg" alt="" className="owl-lazy" width="100" height="100" />
 	                                    </figure>
 	                                </div>
 	                                  <h6>Noise 6S Smartwatch</h6>
@@ -156,7 +166,7 @@ const Home =() =>{
 	                <div className="strip">
 	                    <div data-countdown="2022/03/15" className="countdown"></div>
 	                    <figure> 
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-4.jpg" className="owl-lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/item-4.png" data-src="assets/img/items/item-4.jpg" className="owl-lazy" alt="" width="533" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                                
@@ -169,7 +179,7 @@ const Home =() =>{
 	                            <Link to="author.html" className="author">
 	                                <div className="author_thumb">
 	                                    <figure>
-	                                        <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar1.jpg" alt="" className="owl-lazy" width="100" height="100" />
+	                                        <img src="https://distil.in/demo/snappcoins/img/avatar1.jpg" data-src="assets/img/avatar1.jpg" alt="" className="owl-lazy" width="100" height="100" />
 	                                    </figure>
 	                                </div>
 	                                <h6>John Player Wayfarer</h6>
@@ -185,7 +195,7 @@ const Home =() =>{
 	            <div className="item">
 	                <div className="strip">
 	                    <figure> 
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-5.jpg" className="owl-lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/item-5.png" data-src="assets/img/items/item-5.jpg" className="owl-lazy" alt="" width="533" height="400" />
 	                        <Link to="author.html" className="author">
 	                        </Link>
 	                        <Link to="detail-page.html" className="strip_info">
@@ -200,7 +210,7 @@ const Home =() =>{
 	                            <Link to="author.html" className="author">
 	                                <div className="author_thumb veryfied"><i className="bi bi-check"></i>
 	                                    <figure>
-	                                        <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar4.jpg" alt="" className="owl-lazy" width="100" height="100" />
+	                                        <img src="https://distil.in/demo/snappcoins/img/avatar4.jpg" data-src="assets/img/avatar4.jpg" alt="" className="owl-lazy" width="100" height="100" />
 	                                    </figure>
 	                                </div>
 	                                <h6>@Tomas_Clue</h6>
@@ -216,7 +226,7 @@ const Home =() =>{
 	            <div className="item">
 	                <div className="strip">
 	                    <figure> 
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-6.jpg" className="owl-lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/item-6.jpg" data-src="assets/img/items/item-6.jpg" className="owl-lazy" alt="" width="533" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                               
@@ -229,7 +239,7 @@ const Home =() =>{
 	                            <Link to="author.html" className="author">
 	                                <div className="author_thumb">
 	                                    <figure>
-	                                        <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar1.jpg" alt="" className="owl-lazy" width="100" height="100" />
+	                                        <img src="https://distil.in/demo/snappcoins/img/avatar1.jpg" data-src="assets/img/avatar1.jpg" alt="" className="owl-lazy" width="100" height="100" />
 	                                    </figure>
 	                                </div>
 	                                <h6>@Pixel_inc</h6>
@@ -258,7 +268,7 @@ const Home =() =>{
 	                            <Link to="author.html" className="author">
 	                                <div className="author_thumb veryfied"><i className="bi bi-check"></i>
 	                                    <figure>
-	                                        <img src="assets/img/avatar-placeholder.png" data-src="img/avatar3.jpg" alt="" className="owl-lazy" width="100" height="100" />
+	                                        <img src="https://distil.in/demo/snappcoins/img/avatar3.jpg" data-src="img/avatar3.jpg" alt="" className="owl-lazy" width="100" height="100" />
 	                                    </figure>
 	                                </div>
 	                                <h6>@Marc_Osl</h6>
@@ -273,7 +283,7 @@ const Home =() =>{
 	          
 	        </div>
 	     
-	        <p className="text-center mt-4" data-cue="slideInUp"><a to="catalog" className="btn_1 medium pulse_bt">Start Redeeming</a></p>
+	        <p className="text-center mt-4"><a to="catalog" className="btn_1 medium pulse_bt">Start Redeeming</a></p>
 	    </div>
 	
 
@@ -288,13 +298,13 @@ const Home =() =>{
 	           
 
 	            <div className="row author_list">
-	                <div className="col-lg-4 col-md-6" data-cue="slideInUp">
+	                <div className="col-lg-4 col-md-6" >
 	                    <Link to="author.html" className="author">
 	                        <strong>1</strong>
 	                        <div className="author_thumb veryfied">
 	                            <i className="bi bi-check"></i>
 	                            <figure>
-	                                <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar1.jpg" alt="" className="lazy" width="100" height="100" />
+	                                <img src="https://distil.in/demo/snappcoins/img/avatar1.jpg" data-src="assets/img/avatar1.jpg" alt="" className="lazy" width="100" height="100" />
 	                            </figure>
 	                        </div>
 	                        <div>
@@ -303,13 +313,13 @@ const Home =() =>{
 	                        </div>
 	                    </Link>
 	                </div>
-	                <div className="col-lg-4 col-md-6" data-cue="slideInUp">
+	                <div className="col-lg-4 col-md-6" >
 	                    <Link to="author.html" className="author">
 	                        <strong>2</strong>
 	                        <div className="author_thumb veryfied">
 	                            <i className="bi bi-check"></i>
 	                            <figure>
-	                                <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar2.jpg" alt="" className="lazy" width="100" height="100" />
+	                                <img src="https://distil.in/demo/snappcoins/img/avatar2.jpg" data-src="assets/img/avatar2.jpg" alt="" className="lazy" width="100" height="100" />
 	                            </figure>
 	                        </div>
 	                        <div>
@@ -318,13 +328,13 @@ const Home =() =>{
 	                        </div>
 	                    </Link>
 	                </div>
-	                <div className="col-lg-4 col-md-6" data-cue="slideInUp">
+	                <div className="col-lg-4 col-md-6" >
 	                    <Link to="author.html" className="author">
 	                        <strong>3</strong>
 	                        <div className="author_thumb veryfied">
 	                            <i className="bi bi-check"></i>
 	                            <figure>
-	                                <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar3.jpg" alt="" className="lazy" width="100" height="100" />
+	                                <img src="https://distil.in/demo/snappcoins/img/avatar3.jpg" data-src="assets/img/avatar3.jpg" alt="" className="lazy" width="100" height="100" />
 	                            </figure>
 	                        </div>
 	                        <div>
@@ -333,13 +343,13 @@ const Home =() =>{
 	                        </div>
 	                    </Link>
 	                </div>
-	                <div className="col-lg-4 col-md-6" data-cue="slideInUp">
+	                <div className="col-lg-4 col-md-6">
 	                    <Link to="author.html" className="author">
 	                        <strong>4</strong>
 	                        <div className="author_thumb veryfied">
 	                            <i className="bi bi-check"></i>
 	                            <figure>
-	                                <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar4.jpg" alt="" className="lazy" width="100" height="100" />
+	                                <img src="https://distil.in/demo/snappcoins/img/avatar4.jpg" data-src="assets/img/avatar4.jpg" alt="" className="lazy" width="100" height="100" />
 	                            </figure>
 	                        </div>
 	                        <div>
@@ -348,13 +358,13 @@ const Home =() =>{
 	                        </div>
 	                    </Link>
 	                </div>
-	                <div className="col-lg-4 col-md-6" data-cue="slideInUp">
+	                <div className="col-lg-4 col-md-6" >
 	                    <Link to="author.html" className="author">
 	                        <strong>5</strong>
 	                        <div className="author_thumb veryfied">
 	                            <i className="bi bi-check"></i>
 	                            <figure>
-	                                <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar5.jpg" alt="" className="lazy" width="100" height="100" />
+	                                <img src="https://distil.in/demo/snappcoins/img/avatar5.jpg" data-src="assets/img/avatar5.jpg" alt="" className="lazy" width="100" height="100" />
 	                            </figure>
 	                        </div>
 	                        <div>
@@ -363,13 +373,13 @@ const Home =() =>{
 	                        </div>
 	                    </Link>
 	                </div>
-	                <div className="col-lg-4 col-md-6" data-cue="slideInUp">
+	                <div className="col-lg-4 col-md-6">
 	                    <Link to="author.html" className="author">
 	                        <strong>6</strong>
 	                        <div className="author_thumb veryfied">
 	                            <i className="bi bi-check"></i>
 	                            <figure>
-	                                <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar6.jpg" alt="" className="lazy" width="100" height="100" />
+	                                <img src="https://distil.in/demo/snappcoins/img/avatar6.jpg" data-src="assets/img/avatar6.jpg" alt="" className="lazy" width="100" height="100" />
 	                            </figure>
 	                        </div>
 	                        <div>
@@ -378,13 +388,13 @@ const Home =() =>{
 	                        </div>
 	                    </Link>
 	                </div>
-	                <div className="col-lg-4 col-md-6" data-cue="slideInUp">
+	                <div className="col-lg-4 col-md-6" >
 	                    <Link to="author.html" className="author">
 	                        <strong>7</strong>
 	                        <div className="author_thumb veryfied">
 	                            <i className="bi bi-check"></i>
 	                            <figure>
-	                                <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar7.jpg" alt="" className="lazy" width="100" height="100" />
+	                                <img src="https://distil.in/demo/snappcoins/img/avatar7.jpg" data-src="assets/img/avatar7.jpg" alt="" className="lazy" width="100" height="100" />
 	                            </figure>
 	                        </div>
 	                        <div>
@@ -393,13 +403,13 @@ const Home =() =>{
 	                        </div>
 	                    </Link>
 	                </div>
-	                <div className="col-lg-4 col-md-6" data-cue="slideInUp">
+	                <div className="col-lg-4 col-md-6" >
 	                    <Link to="author.html" className="author">
 	                        <strong>8</strong>
 	                        <div className="author_thumb veryfied">
 	                            <i className="bi bi-check"></i>
 	                            <figure>
-	                                <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar8.jpg" alt="" className="lazy" width="100" height="100" />
+	                                <img src="https://distil.in/demo/snappcoins/img/avatar8.jpg" data-src="assets/img/avatar8.jpg" alt="" className="lazy" width="100" height="100" />
 	                            </figure>
 	                        </div>
 	                        <div>
@@ -408,13 +418,13 @@ const Home =() =>{
 	                        </div>
 	                    </Link>
 	                </div>
-	                <div className="col-lg-4 col-md-6" data-cue="slideInUp">
+	                <div className="col-lg-4 col-md-6" >
 	                    <Link to="author.html" className="author">
 	                        <strong>9</strong>
 	                        <div className="author_thumb veryfied">
 	                            <i className="bi bi-check"></i>
 	                            <figure>
-	                                <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar9.jpg" alt="" className="lazy" width="100" height="100" />
+	                                <img src="https://distil.in/demo/snappcoins/img/avatar9.jpg" data-src="assets/img/avatar9.jpg" alt="" className="lazy" width="100" height="100" />
 	                            </figure>
 	                        </div>
 	                        <div>
@@ -455,10 +465,10 @@ const Home =() =>{
 	        
 
 	        <div className="row justify-content-center">
-	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" data-cue="slideInUp">
+	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
 	                <div className="strip">
 	                    <figure>
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-8.jpg" className="lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/items/item-8.jpg" data-src="assets/img/items/item-8.jpg" className="lazy" alt="" width="533" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                             
@@ -471,7 +481,7 @@ const Home =() =>{
 	                            <Link to="author.html" className="author">
 	                                <div className="author_thumb">
 	                                    <figure>
-	                                        <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar2.jpg" alt="" className="lazy" width="100" height="100" /></figure>
+	                                        <img src="https://distil.in/demo/snappcoins/img/avatar2.jpg" data-src="assets/img/avatar2.jpg" alt="" className="lazy" width="100" height="100" /></figure>
 	                                </div>
 	                                <h6>Brand Name</h6>
 	                            </Link>
@@ -483,10 +493,10 @@ const Home =() =>{
 	                </div>
 	            </div>
 	           
-	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" data-cue="slideInUp">
+	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" >
 	                <div className="strip">
 	                    <figure>
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-9.jpg" className="lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/items/item-9.jpg" data-src="assets/img/items/item-9.jpg" className="lazy" alt="" width="533" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                               
@@ -511,10 +521,10 @@ const Home =() =>{
 	                </div>
 	            </div>
 	          
-	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" data-cue="slideInUp">
+	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" >
 	                <div className="strip">
 	                    <figure>
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-10.jpg" className="lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/items/item-10.jpg" data-src="assets/img/items/item-10.jpg" className="lazy" alt="" width="533" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                              
@@ -539,10 +549,10 @@ const Home =() =>{
 	                </div>
 	            </div>
 	        
-	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" data-cue="slideInUp">
+	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" >
 	                <div className="strip">
 	                    <figure>
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-11.jpg" className="lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/items/item-11.jpg" data-src="assets/img/items/item-11.jpg" className="lazy" alt="" width="533" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                              
@@ -568,10 +578,10 @@ const Home =() =>{
 	                </div>
 	            </div>
 	          
-	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" data-cue="slideInUp">
+	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" >
 	                <div className="strip">
 	                    <figure>
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-12.jpg" className="lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/items/item-12.jpg" data-src="assets/img/items/item-12.jpg" className="lazy" alt="" width="533" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                               
@@ -584,7 +594,7 @@ const Home =() =>{
 	                            <Link to="author.html" className="author">
 	                                <div className="author_thumb">
 	                                    <figure>
-	                                        <img src="assets/img/avatar-placeholder.png" data-src="assets/img/avatar1.jpg" alt="" className="lazy" width="100" height="100" />
+	                                        <img src="https://distil.in/demo/snappcoins/img/avatar1.jpg" data-src="assets/img/avatar1.jpg" alt="" className="lazy" width="100" height="100" />
                                             </figure>
 	                                </div>
 	                                <h6>Brand Name</h6>
@@ -597,10 +607,10 @@ const Home =() =>{
 	                </div>
 	            </div>
 	        
-	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" data-cue="slideInUp">
+	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" >
 	                <div className="strip">
 	                    <figure>
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-6.jpg" className="lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/items/item-6.jpg" data-src="assets/img/items/item-6.jpg" className="lazy" alt="" width="533" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                               
@@ -625,10 +635,10 @@ const Home =() =>{
 	                </div>
 	            </div>
 	          
-	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" data-cue="slideInUp">
+	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" >
 	                <div className="strip">
 	                    <figure>
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-7.jpg" className="lazy" alt="" width="598" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/items/item-7.jpg" data-src="assets/img/items/item-7.jpg" className="lazy" alt="" width="598" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                               
@@ -653,10 +663,10 @@ const Home =() =>{
 	                </div>
 	            </div>
 	         
-	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" data-cue="slideInUp">
+	            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" >
 	                <div className="strip">
 	                    <figure>
-	                        <img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-8.jpg" className="lazy" alt="" width="533" height="400" />
+	                        <img src="https://distil.in/demo/snappcoins/img/items/item-8.jpg" data-src="assets/img/items/item-8.jpg" className="lazy" alt="" width="533" height="400" />
 	                        <Link to="detail-page.html" className="strip_info">
 	                            <div className="item_title">
 	                              
@@ -683,7 +693,7 @@ const Home =() =>{
 	            
 	        </div>
 	        
-	        <p className="text-center mt-4" data-cue="slideInUp"><a to="catalog" className="btn_1 gradient pulse_bt">View New Items</a></p>
+	        <p className="text-center mt-4" ><Link to="/catalog" className="btn_1 gradient pulse_bt">View New Items</Link></p>
 	    </div>
 	    
 
@@ -697,24 +707,24 @@ const Home =() =>{
 	            <div className="row justify-content-md-center how_2">
 	                <div className="col-lg-5 text-center">
 	                    <figure className="mb-5">
-	                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/web_wireframe.svg" alt="" className="img-fluid lazy" width="360" height="380" />
+	                        <img src="https://distil.in/demo/snappcoins/img/web_wireframe.svg" data-src="img/web_wireframe.svg" alt="" className="img-fluid lazy" width="360" height="380" />
 	                    </figure>
 	                </div>
 	                <div className="col-lg-5">
 	                    <ul>
-	                        <li data-cue="slideInUp">
+	                        <li >
 	                            <h3><span>#01.</span> Set up your Snappcoins account</h3>
 	                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.</p>
 	                        </li>
-	                        <li data-cue="slideInUp">
+	                        <li >
 	                            <h3><span>#02.</span> Check your Snapp balance</h3>
 	                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.</p>
 	                        </li>
-	                        <li data-cue="slideInUp">
+	                        <li >
 	                            <h3><span>#03.</span> Use your Snapps & redeem!</h3>
 	                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.</p>
 	                        </li>
-	                    </ul> <p className="add_top_30" data-cue="slideInUp"><a to="register" className="btn_1">Join Now!</a></p>
+	                    </ul> <p className="add_top_30" ><Link to="/register" className="btn_1">Join Now!</Link></p>
 	                </div>
 	                
 	            </div>
@@ -733,7 +743,7 @@ const Home =() =>{
 	        
 
 	    	<div className="row">
-			    <div className="col-lg-4" data-cue="slideInUp">
+			    <div className="col-lg-4" >
 			        <article className="blog">
 			            <figure>
 			                <Link to="blog-post.html"><img src="assets/img/item-blog-placeholder.png" data-src="assets/img/blog-5.jpg" alt="" className="lazy" width="800" height="533" />
@@ -753,7 +763,7 @@ const Home =() =>{
 			        </article>
 			        
 			    </div>
-			    <div className="col-lg-4" data-cue="slideInUp">
+			    <div className="col-lg-4" >
 			        <article className="blog">
 			            <figure>
 			                <Link to="blog-post.html"><img src="assets/img/item-blog-placeholder.png" data-src="assets/img/blog-4.jpg" alt="" className="lazy" width="800" height="533" />
@@ -773,7 +783,7 @@ const Home =() =>{
 			        </article>
 			        
 			    </div>
-			    <div className="col-lg-4" data-cue="slideInUp">
+			    <div className="col-lg-4">
 			        <article className="blog">
 			            <figure>
 			                <Link to="blog-post.html"><img src="assets/img/item-blog-placeholder.png" data-src="assets/img/blog-6.jpg" alt="" className="lazy" width="800" height="533" />
@@ -819,9 +829,9 @@ const Home =() =>{
 					<h3>Snappcoins</h3>
 					<div className="links">
 						<ul>
-							<li><Link to="connect">Connect Wallet</Link></li>
-							<li><Link to="help.html">Faq</Link></li>
-							<li><Link to="become-partner.html">Become a Partner</Link></li>
+							<li><Link to="/connect">Connect Wallet</Link></li>
+							<li><Link to="/help">Faq</Link></li>
+							<li><Link to="/partner">Become a Partner</Link></li>
 						</ul>
 					</div>
 				</div>
