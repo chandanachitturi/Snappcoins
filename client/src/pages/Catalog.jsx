@@ -11,17 +11,20 @@ import FilterUp from '../components/FilterUp';
 const Catalog = (props) => {
 	const [products, setProducts] = useState([])
 	const [total_count, setCount] = useState(0)
+	const [search_count , setSearchCount] = useState(0)
 	//pagination 
+	const [searchTerm, setSearchTerm] = useState('')
 	const [currentPage, setCurrentPage] = useState(1);
 	const itemsPerPage = 9; // change the value here sasi
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 
-				const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall', { params: { pagenum: currentPage, size: itemsPerPage } });
+				const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall', { params: { pagenum: currentPage, size: itemsPerPage, searchTerm: searchTerm } });
 				//const total = response_prod.headers.get("x-total-count");
 				setProducts(response_prod.data.merchandises);
 				setCount(response_prod.data.total_count)
+				setSearchCount(response_prod.data.search_count)
 				console.log("hitted")
 			} catch (error) {
 				console.error(error);
@@ -29,10 +32,10 @@ const Catalog = (props) => {
 		};
 
 		fetchData();
-	}, [currentPage, total_count]);
+	}, [currentPage, total_count, searchTerm ,search_count]);
 
 	// pagination logic
-	const pagelength = Math.ceil(total_count / itemsPerPage)
+	const pagelength = Math.ceil(search_count / itemsPerPage)
 	const start = 1;
 	const end = pagelength;
 	const pages = ["<<", "<"]; // represents  the starting page
@@ -79,11 +82,20 @@ const Catalog = (props) => {
 	// const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 	// const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
 
+	//search functionality
+
 	return (
 		<>
 			<Header />
 			<main>
-				<FilterUp />
+				<FilterUp >
+					<div className="search_bar_list">
+						<input type="text" className="form-control" placeholder="Search again..." value={searchTerm} onChange={(e) => {
+							setSearchTerm(e.target.value)
+						}
+						} />
+					</div>
+				</FilterUp>
 
 				<div className="container margin_30_40">
 					<div className="page_header">
@@ -94,7 +106,7 @@ const Catalog = (props) => {
 								<li>Page active</li>
 							</ul>
 						</div>
-						<h1>All :</h1><span> {products.length} found</span>
+						<h1>All :</h1><span> {total_count} found</span>
 					</div>
 
 					<div className="row">
@@ -102,14 +114,14 @@ const Catalog = (props) => {
 						< Filter />
 
 						<div className="col-lg-9">
-							<div className='row'>
-								{products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} />)}
+							<div className='row' >
+								{search_count !== 0 ? products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} />) : <p className='text-center'>No products Available</p>}
 							</div>
 							<div className='text-center'>
 								<div className="pagination_fg mb-4">
-									{pages.map((i) => {
+									{search_count !== 0 ? pages.map((i) => {
 										return <PageComp key={i} pagenum={i} handleClick={handleClick} isActive={currentPage == i ? true : false} />
-									})}
+									}) : null}
 								</div>
 							</div>
 						</div>

@@ -14,7 +14,6 @@ function Product(props) {
         );
     }, [props.img]);
 
-    console.log(imageSrc)
     return (
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
             <div className="strip">

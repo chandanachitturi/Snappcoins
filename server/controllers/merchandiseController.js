@@ -7,19 +7,16 @@ const gfsPromise = require('../config/gridfsDb')
 
 exports.getMerchandises = async (req, res) => {
     try {
-        const { size, pagenum , category } = req.query
-        let cat;
-        filter = category ? category : {}
+        const { size, pagenum , searchTerm } = req.query
         var query = {}
         query.skip = size * (pagenum - 1)
         query.limit = size
-        const merchandises = await Merchandise.find(filter,{},query).then((data) => {
+        const merchandises = await Merchandise.find({  title : {$regex : searchTerm.trim() , $options : 'i'}},{},query).then((data) => {
             return data
         })
-        const count = await Merchandise.count({}).then((data) => {
-            return data
-        })
-        res.status(200).json({ merchandises, status: true, msg: `Merchandises fetched successfully` , total_count : count })
+        const count = await Merchandise.count({})
+        const search_count = await Merchandise.count({title : {$regex : searchTerm.trim() , $options : 'i'}})
+        res.status(200).json({ merchandises, status: true, msg: `Merchandises fetched successfully` , total_count : count , search_count : search_count })
     } catch (err) {
         console.error(err);
         return res.status(500).json({ status: false, msg: "Internal Server Error" });

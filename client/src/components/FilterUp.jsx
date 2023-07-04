@@ -1,6 +1,6 @@
 import React from "react";
 
-function FilterUp() {
+function FilterUp({children}) {
     return (
         <div className="filters_full version_2">
             <div className="container clearfix">
@@ -17,16 +17,12 @@ function FilterUp() {
                         </div>
                     </div>
                     <a href="#0" className="open_filters btn_filters"><i className="bi bi-filter"></i><span>Filters</span></a>
-                    <div className="search_bar_list">
-                        <input type="text" className="form-control" placeholder="Search again..." />
-                    </div>
+                   {children}
                     <a className="btn_search_mobile btn_filters" data-bs-toggle="collapse" href="#collapseSearch"><i className="bi bi-search"></i></a>
                 </div>
             </div>
             <div className="collapse" id="collapseSearch">
-                <div className="search_bar_list">
-                    <input type="text" className="form-control" placeholder="Search again..." />
-                </div>
+                {children}
             </div>
         </div>
     )
