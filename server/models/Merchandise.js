@@ -21,6 +21,9 @@ const MerchandiseSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true
+  },category: {
+    type: Array,
+    required: true
   },
   count : {
     type : Number,

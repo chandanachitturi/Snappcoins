@@ -9,9 +9,10 @@ import PageComp from '../components/PageComp';
 import FilterUp from '../components/FilterUp';
 
 const Catalog = (props) => {
-	const [products, setProducts] = useState([])
+	const [products, setProducts] = useState(new Set())
 	const [total_count, setCount] = useState(0)
-	const [search_count , setSearchCount] = useState(0)
+	const [search_count, setSearchCount] = useState(0)
+	const [genre, setgenre] = useState([])
 	//pagination 
 	const [searchTerm, setSearchTerm] = useState('')
 	const [currentPage, setCurrentPage] = useState(1);
@@ -20,19 +21,19 @@ const Catalog = (props) => {
 		const fetchData = async () => {
 			try {
 
-				const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall', { params: { pagenum: currentPage, size: itemsPerPage, searchTerm: searchTerm } });
+				const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall', { params: { pagenum: currentPage, size: itemsPerPage, searchTerm: searchTerm , category : Array.from(genre)} });
 				//const total = response_prod.headers.get("x-total-count");
 				setProducts(response_prod.data.merchandises);
 				setCount(response_prod.data.total_count)
 				setSearchCount(response_prod.data.search_count)
-				console.log("hitted")
+				console.log(genre)
 			} catch (error) {
 				console.error(error);
 			}
 		};
 
 		fetchData();
-	}, [currentPage, total_count, searchTerm ,search_count]);
+	}, [currentPage, total_count, searchTerm, search_count,genre]);
 
 	// pagination logic
 	const pagelength = Math.ceil(search_count / itemsPerPage)
@@ -47,6 +48,7 @@ const Catalog = (props) => {
 	pages.push(">") // represents the ending page
 	pages.push(">>")
 
+	const Category = ['Art', 'Electronics', 'Stationary', 'Music', 'Wellness'];
 	const handleClick = (e) => {
 		e.preventDefault();
 		var temppage = e.target.innerHTML
@@ -106,12 +108,35 @@ const Catalog = (props) => {
 								<li>Page active</li>
 							</ul>
 						</div>
-						<h1>All :</h1><span> {total_count} found</span>
+						<h1>All :</h1><span> {search_count} found</span>
 					</div>
 
 					<div className="row">
 
-						< Filter />
+						< Filter>
+							{Category.map((g) => {
+								return (<li>
+									<label class="container_check">{g}
+										{/* <small>100</small> */}
+										<input type="checkbox" value={g}  onChange={(e) => {
+											
+											setgenre((prev) => {
+												if(e.target.checked){
+													const temp = new Set(genre)
+													temp.add(e.target.value)
+													return temp
+												}
+												else{
+													const temp = new Set(genre)
+													temp.delete(e.target.value)
+													return temp
+												}
+											}) } }/>
+										<span class="checkmark"></span>
+									</label>
+								</li>)
+							})}
+						</Filter>
 
 						<div className="col-lg-9">
 							<div className='row' >
