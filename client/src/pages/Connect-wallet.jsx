@@ -1,10 +1,11 @@
 import React from 'react'; 
+import FullpageLoader from '../components/FullpageLoader';
 const Connect=() =>{
     return(
     <>
 
 	
-	<div id="preloader"><div data-loader="circle-side"></div></div>
+	<FullpageLoader />
 			
 	<header class="header clearfix element_to_stick">
 	    <div class="layer"></div>

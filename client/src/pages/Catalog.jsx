@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import Product from '../components/Product';
 import axios from "axios";
 import Pagination from '../components/Pagination';
-import Header from './Header';
-import Filter from './Filter';
-import PageComp from './PageComp';
-import FilterUp from './FilterUp';
+import Header from '../components/Header';
+import Filter from '../components/Filter';
+import PageComp from '../components/PageComp';
+import FilterUp from '../components/FilterUp';
 
 const Catalog = (props) => {
 	const [products, setProducts] = useState([])
 	const [total_count, setCount] = useState(0)
 	//pagination 
 	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 6; // change the value here sasi
+	const itemsPerPage = 9; // change the value here sasi
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
