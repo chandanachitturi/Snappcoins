@@ -5,6 +5,7 @@ const app = express()
 const cors = require("cors");
 const port = process.env.PORT || 5000
 const merchandiseRoutes = require('./routes/merchandise.route');
+const profilePicRoute = require("./routes/profile.route")
 require('dotenv').config()
 app.use(express.json())
 app.use(bodyParser.json());
@@ -24,6 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/merchandise',merchandiseRoutes)
+app.use('/api',profilePicRoute);
 
 connectDB() //DB connection
 

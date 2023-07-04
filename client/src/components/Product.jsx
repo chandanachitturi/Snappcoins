@@ -1,18 +1,39 @@
-import React , {useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import Loader from "./Loader";
+import axios from "axios"
+import ImgLoader from "./ImgLoader";
 
 function Product(props) {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [imageSrc, setImageSrc] = useState("");
+    const [ProfPicLoaded, setProfPicLoaded] = useState(false)
+    const [ProfilePic, setProfilePic] = useState("");
+
 
     useEffect(() => {
+        const fetch = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_URL}/api/getprofile${props.userid}`)
+                const imgsrc = response.data.user.image
+                console.log(imgsrc)
+                setProfilePic(
+                    (imgsrc)
+                        ? `${process.env.REACT_APP_URL}/api/merchandise/img${imgsrc}`
+                        : "assets/img/items/default-prof.png"
+                );
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        fetch();
         setImageSrc(
             props.img
                 ? `${process.env.REACT_APP_URL}/api/merchandise/img${props.img}`
                 : "assets/img/items/default-prod.png"
         );
-    }, [props.img]);
+    }, [props.img, props.profpic, ProfilePic]);
 
     return (
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
@@ -31,8 +52,8 @@ function Product(props) {
                     <li>
                         <Link to="author.html" className="author">
                             <div className="author_thumb veryfied"><i className="bi bi-check"></i>
-                                <figure>
-                                    <img src="assets/img/items/default-prof.png" data-src="img/avatar2.jpg" alt="" className="lazy" width="100" height="100" /></figure>
+                                <figure>{!ProfPicLoaded && <div > <ImgLoader /> </div>}
+                                    <img src={ProfilePic} data-src="img/avatar2.jpg" alt="" className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`} width="100px" onLoad={() => setProfPicLoaded(true)} onError={() => setProfPicLoaded(false)} /></figure>
                             </div>
                             <h6 className="">{props.title}</h6>
                         </Link>
@@ -43,7 +64,7 @@ function Product(props) {
                     </li>
                 </ul>
                 <ul>
-                    <li className="">{props.desc.slice(0,20) + "..."}</li>
+                    <li className="">{props.desc.slice(0, 20) + "..."}</li>
                     <li className="text-uppercase link">{props.brand}</li>
                 </ul>
             </div>

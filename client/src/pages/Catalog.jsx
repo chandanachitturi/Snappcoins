@@ -115,7 +115,7 @@ const Catalog = (props) => {
 
 						<div className="col-lg-9">
 							<div className='row' >
-								{search_count !== 0 ? products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} />) : <p className='text-center'>No products Available</p>}
+								{search_count !== 0 ? products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} />) : <p className='text-center'>No products Available</p>}
 							</div>
 							<div className='text-center'>
 								<div className="pagination_fg mb-4">
