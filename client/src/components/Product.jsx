@@ -23,7 +23,7 @@ function Product(props) {
                         : "assets/img/items/default-prof.png"
                 );
             }
-            catch(err){
+            catch (err) {
                 console.log(err);
             }
         }
@@ -62,6 +62,11 @@ function Product(props) {
                     <li>
                         <Link to="#0" className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
                     </li>
+                </ul>
+                <ul>
+                    <li className="container-fluid"  >{props.genre.map((g) => {
+                        return <span className="badge bg-success me-1" >{g}</span>
+                    })}</li>
                 </ul>
                 <ul>
                     <li className="">{props.desc.slice(0, 20) + "..."}</li>

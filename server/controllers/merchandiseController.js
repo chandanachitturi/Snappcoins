@@ -7,11 +7,14 @@ const gfsPromise = require('../config/gridfsDb')
 
 exports.getMerchandises = async (req, res) => {
   try {
-    const { size, pagenum, searchTerm, category } = req.query
+    const { size, pagenum, searchTerm, category , uptoSnapp } = req.query
     var query = {}
     query.skip = size * (pagenum - 1)
     query.limit = size
     var filter_query = { title: { $regex: searchTerm.trim(), $options: 'i' }}
+    if(uptoSnapp){
+      filter_query.uptoSnapp = {}
+    }
     if (category && category.length > 0) {
       filter_query.category = { $in: category };
     }

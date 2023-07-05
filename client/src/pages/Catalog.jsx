@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Product from '../components/Product';
 import axios from "axios";
-import Pagination from '../components/Pagination';
 import Header from '../components/Header';
 import Filter from '../components/Filter';
 import PageComp from '../components/PageComp';
@@ -13,6 +12,7 @@ const Catalog = (props) => {
 	const [total_count, setCount] = useState(0)
 	const [search_count, setSearchCount] = useState(0)
 	const [genre, setgenre] = useState([])
+	const [UptoSnapp , setUptoSnapp] = useState(0)
 	//pagination 
 	const [searchTerm, setSearchTerm] = useState('')
 	const [currentPage, setCurrentPage] = useState(1);
@@ -140,7 +140,7 @@ const Catalog = (props) => {
 
 						<div className="col-lg-9">
 							<div className='row' >
-								{search_count !== 0 ? products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} />) : <p className='text-center'>No products Available</p>}
+								{search_count !== 0 ? products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} />) : <p className='text-center'>No products Available</p>}
 							</div>
 							<div className='text-center'>
 								<div className="pagination_fg mb-4">
