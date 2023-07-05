@@ -1,6 +1,7 @@
 const Merchandise = require('../models/Merchandise')
 const mongoose = require('mongoose');
-const gfsPromise = require('../config/gridfsDb')
+const gfsPromise = require('../config/gridfsDb');
+const { parse } = require('dotenv');
 
 
 
@@ -9,11 +10,16 @@ exports.getMerchandises = async (req, res) => {
   try {
     const { size, pagenum, searchTerm, category , uptoSnapp } = req.query
     var query = {}
-    query.skip = size * (pagenum - 1)
-    query.limit = size
+    query.skip = parseInt(size) * parseInt(pagenum - 1)
+    query.limit = parseInt(size)
     var filter_query = { title: { $regex: searchTerm.trim(), $options: 'i' }}
-    if(uptoSnapp){
-      filter_query.uptoSnapp = {}
+    const h_price = await Merchandise.find({}).sort({ cost : -1 })
+    const l_price = await Merchandise.findOne({}).sort({ price : 1 })
+    if(uptoSnapp && uptoSnapp != 0){
+      filter_query.price = { $lte : uptoSnapp }
+    }
+    else if(uptoSnapp == 0){
+      filter_query.price = { $lte : h_price[0].price  }
     }
     if (category && category.length > 0) {
       filter_query.category = { $in: category };
@@ -22,10 +28,11 @@ exports.getMerchandises = async (req, res) => {
       return data
     })
     
+    
     const count = await Merchandise.count({})
     const search_count = await Merchandise.count(filter_query)
     console.log(category)
-    res.status(200).json({ merchandises, status: true, msg: `Merchandises fetched successfully`, total_count: count, search_count: search_count })
+    res.status(200).json({ merchandises, status: true, msg: `Merchandises fetched successfully`, total_count: count, search_count: search_count , h_price : h_price[0].price , l_price : l_price.price })
   } catch (err) {
     console.error(err);
     return res.status(500).json({ status: false, msg: "Internal Server Error" });

@@ -6,34 +6,43 @@ import Header from '../components/Header';
 import Filter from '../components/Filter';
 import PageComp from '../components/PageComp';
 import FilterUp from '../components/FilterUp';
+import Loader from '../components/Loader';
 
 const Catalog = (props) => {
 	const [products, setProducts] = useState(new Set())
 	const [total_count, setCount] = useState(0)
 	const [search_count, setSearchCount] = useState(0)
 	const [genre, setgenre] = useState([])
-	const [UptoSnapp , setUptoSnapp] = useState(0)
+
 	//pagination 
 	const [searchTerm, setSearchTerm] = useState('')
 	const [currentPage, setCurrentPage] = useState(1);
+	const [h_price, setHprice] = useState(0)
+	const [l_price, setLprice] = useState(0)
+	const [UptoSnapp, setUptoSnapp] = useState(0)
+	const [productsLoaded, setLoaded] = useState(false)
 	const itemsPerPage = 9; // change the value here sasi
 	useEffect(() => {
+		setLoaded(false)
 		const fetchData = async () => {
 			try {
 
-				const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall', { params: { pagenum: currentPage, size: itemsPerPage, searchTerm: searchTerm , category : Array.from(genre)} });
+				const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall', { params: { pagenum: currentPage, size: itemsPerPage, searchTerm: searchTerm, category: Array.from(genre), uptoSnapp: UptoSnapp } });
 				//const total = response_prod.headers.get("x-total-count");
 				setProducts(response_prod.data.merchandises);
 				setCount(response_prod.data.total_count)
 				setSearchCount(response_prod.data.search_count)
+				setHprice(response_prod.data.h_price)
+				setLprice(response_prod.data.l_price)
 				console.log(genre)
+				setLoaded(true)
 			} catch (error) {
 				console.error(error);
 			}
 		};
-
 		fetchData();
-	}, [currentPage, total_count, searchTerm, search_count,genre]);
+
+	}, [currentPage, searchTerm, genre, UptoSnapp]);
 
 	// pagination logic
 	const pagelength = Math.ceil(search_count / itemsPerPage)
@@ -85,7 +94,6 @@ const Catalog = (props) => {
 	// const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
 
 	//search functionality
-
 	return (
 		<>
 			<Header />
@@ -118,37 +126,49 @@ const Catalog = (props) => {
 								return (<li>
 									<label class="container_check">{g}
 										{/* <small>100</small> */}
-										<input type="checkbox" value={g}  onChange={(e) => {
-											
+										<input type="checkbox" value={g} onChange={(e) => {
+
 											setgenre((prev) => {
-												if(e.target.checked){
+												if (e.target.checked) {
 													const temp = new Set(genre)
 													temp.add(e.target.value)
 													return temp
 												}
-												else{
+												else {
 													const temp = new Set(genre)
 													temp.delete(e.target.value)
 													return temp
 												}
-											}) } }/>
+											})
+										}} />
 										<span class="checkmark"></span>
 									</label>
 								</li>)
 							})}
-						</Filter>
-
-						<div className="col-lg-9">
-							<div className='row' >
-								{search_count !== 0 ? products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} />) : <p className='text-center'>No products Available</p>}
-							</div>
-							<div className='text-center'>
-								<div className="pagination_fg mb-4">
-									{search_count !== 0 ? pages.map((i) => {
-										return <PageComp key={i} pagenum={i} handleClick={handleClick} isActive={currentPage == i ? true : false} />
-									}) : null}
+							{
+								<div className="collapse" id="filter_3">
+									<div className="range_input">Price range from {l_price} to <span>{UptoSnapp}</span>  snapps</div>
+									<div className="mb-4"><input type="range" min={l_price} max={h_price + 100} step="1" value={UptoSnapp} onChange={(e) => { setUptoSnapp(e.target.value) }} data-orientation="horizontal" /></div>
 								</div>
-							</div>
+							}
+
+						</Filter>
+						<div className="col-lg-9">
+
+							{
+								productsLoaded ? <div className="container-fluid">
+									<div className='row'  >
+										{search_count !== 0 ? products.map((product) => <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} />) : <p className='text-center'>No products Available</p>}
+									</div>
+									<div className='text-center'>
+										<div className="pagination_fg mb-4">
+											{search_count !== 0 ? pages.map((i) => {
+												return <PageComp key={i} pagenum={i} handleClick={handleClick} isActive={currentPage == i ? true : false} />
+											}) : null}
+										</div>
+									</div>
+								</div> : <div className='row justify-content-center  mx-auto m-5'><Loader /></div>
+							}
 						</div>
 
 

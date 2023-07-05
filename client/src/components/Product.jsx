@@ -64,9 +64,9 @@ function Product(props) {
                     </li>
                 </ul>
                 <ul>
-                    <li className="container-fluid"  >{props.genre.map((g) => {
+                    <li className="container-fluid"  >{ props.genre.length > 0 ?  props.genre.map((g) => {
                         return <span className="badge bg-success me-1" >{g}</span>
-                    })}</li>
+                    }) : <span className="badge bg-danger me-1" >No Category</span>}</li>
                 </ul>
                 <ul>
                     <li className="">{props.desc.slice(0, 20) + "..."}</li>
