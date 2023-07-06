@@ -18,8 +18,11 @@ exports.getMerchandises = async (req, res) => {
     if(uptoSnapp && uptoSnapp != 0){
       filter_query.price = { $lte : uptoSnapp }
     }
-    else if(uptoSnapp == 0){
+    else if(uptoSnapp == 0 && uptoSnapp >= h_price[0].price){
       filter_query.price = { $lte : h_price[0].price  }
+    }
+    else if(uptoSnapp == l_price.price){
+      filter_query.price = { $lte : l_price.price }
     }
     if (category && category.length > 0) {
       filter_query.category = { $in: category };

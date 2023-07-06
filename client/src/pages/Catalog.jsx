@@ -42,7 +42,7 @@ const Catalog = (props) => {
 		};
 		fetchData();
 
-	}, [currentPage, searchTerm, genre, UptoSnapp]);
+	}, [UptoSnapp,currentPage, searchTerm, genre]);
 
 	// pagination logic
 	const pagelength = Math.ceil(search_count / itemsPerPage)
@@ -148,7 +148,7 @@ const Catalog = (props) => {
 							{
 								<div className="collapse" id="filter_3">
 									<div className="range_input">Price range from {l_price} to <span>{UptoSnapp}</span>  snapps</div>
-									<div className="mb-4"><input type="range" min={l_price} max={h_price + 100} step="1" value={UptoSnapp} onChange={(e) => { setUptoSnapp(e.target.value) }} data-orientation="horizontal" /></div>
+									<div className="mb-4"><input type="range" min={l_price} max={h_price + 100} step="1" value={UptoSnapp} onChange={(e) => { e.target.value==0 ?  setUptoSnapp({h_price}) : setUptoSnapp(e.target.value) }} data-orientation="horizontal" /></div>
 								</div>
 							}
 
