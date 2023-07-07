@@ -202,9 +202,9 @@
             "visibility": "visible"
         });
         $('.popup_close').on("click", function () {
-            $(".popup_wrapper").fadeOut(100);
+            $(".popup_wrapper").fadeOut(300);
         })
-    }, 300);
+    }, 1500);
 
     // Scroll to top
 	var pxShow = 800; // height on which the button will show

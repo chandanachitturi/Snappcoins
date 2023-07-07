@@ -8,7 +8,7 @@ import FullpageLoader from '../components/FullpageLoader';
 const Home = () => {
 	const [products, setProducts] = useState([])
 	const [productsLoaded, setLoaded] = useState(false)
-	const [searchTerm , setSearchTerm] = useState('')
+	const [searchTerm, setSearchTerm] = useState('')
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -51,8 +51,9 @@ const Home = () => {
 							</span>
 						</li>
 
-						<li><Link to="connect" className="btn_access">Connect Snappcoins</Link></li>
-						<li><div className="nice-select"><div className="btn_access">
+						<li className='d-inline'><Link to="connect" className="btn_access">Connect Snappcoins</Link></li>
+						<li className=''><div className="nice-select" >
+							<div className="btn_access">
 							<span className="current">Login</span></div>
 							<ul className="list">
 								<li className="option"><Link >Merchant</Link></li>

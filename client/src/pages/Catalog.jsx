@@ -66,7 +66,7 @@ const fetchData = async () => {
 	pages.push(">") // represents the ending page
 	pages.push(">>")
 
-	const Category = ['Art', 'Electronics', 'Stationary', 'Music', 'Wellness'];
+	const Category = ['Art', 'Electronics', 'Stationary', 'Music', 'Wellness','Featured'];
 	const handleClick = (e) => {
 		e.preventDefault();
 		var temppage = e.target.innerHTML
