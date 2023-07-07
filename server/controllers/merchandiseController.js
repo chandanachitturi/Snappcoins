@@ -3,7 +3,17 @@ const mongoose = require('mongoose');
 const gfsPromise = require('../config/gridfsDb');
 const { parse } = require('dotenv');
 
-
+exports.getHome  = async (req,res) => {
+  try {
+    var query = {}
+    query.limit = 6
+    const merchandises = await Merchandise.find( {},{}, query).sort({createdAt : -1 })
+    res.status(200).json({ merchandises, status: true, msg: `Merchandises fetched successfully`})
+  }
+  catch(err) {
+    console.log(err)
+  }
+}
 
 
 exports.getMerchandises = async (req, res) => {

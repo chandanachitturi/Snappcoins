@@ -9,7 +9,7 @@ import FilterUp from '../components/FilterUp';
 import Loader from '../components/Loader';
 
 const Catalog = (props) => {
-	const [products, setProducts] = useState(new Set())
+	const [products, setProducts] = useState([])
 	const [total_count, setCount] = useState(0)
 	const [search_count, setSearchCount] = useState(0)
 	const [genre, setgenre] = useState([])
