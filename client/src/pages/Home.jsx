@@ -8,6 +8,7 @@ import FullpageLoader from '../components/FullpageLoader';
 const Home = () => {
 	const [products, setProducts] = useState([])
 	const [productsLoaded, setLoaded] = useState(false)
+	const [searchTerm , setSearchTerm] = useState('')
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -21,7 +22,7 @@ const Home = () => {
 			}
 		};
 		fetchData();
-		
+
 
 	}, []);
 
@@ -86,7 +87,7 @@ const Home = () => {
 
 			<main>
 
-				<div className="hero_single version_2 jarallax">
+				<div className="hero_single version_2 ">
 					<div className="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
 						<div className="container">
 							<div className="row justify-content-center text-center">
@@ -104,12 +105,14 @@ const Home = () => {
 												<input type="submit" value="Find" />
 											</div>
 										</div>
-										<div className="search_trends" style={{ display: "flex", justifyContent: "center" }}>
-											<h5>Trending:</h5>
-											<ul style={{ listStyleType: "none", display: "flex" }}>
-												<li><Link to="#0">Art ,</Link></li>
-												<li><Link to="#0">Games ,</Link></li>
-												<li><Link to="#0">Photo</Link></li>
+										<div className="search_trends text-center" style={{ display: "flex", justifyContent: "center" }}>
+											<h5 className='d-inline'>Trending :</h5>
+											<ul className='d-inline' style={{ listStyleType: "none", marginLeft: "0px" }}>
+												<div className='d-flex justify-content-start'>
+													<li><Link to="#0">Art ,</Link></li>
+													<li><Link to="#0">Games ,</Link></li>
+													<li><Link to="#0">Photo</Link></li>
+												</div>
 											</ul>
 										</div>
 									</form>
@@ -490,7 +493,7 @@ const Home = () => {
 					</div>
 
 
-					{productsLoaded ?  <div className='row d-flex justify-content-center '>
+					{productsLoaded ? <div className='row d-flex justify-content-center '>
 						{
 							products.map((product) => {
 								return <Product price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} />

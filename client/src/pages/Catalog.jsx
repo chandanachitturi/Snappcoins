@@ -24,22 +24,31 @@ const Catalog = (props) => {
 	const itemsPerPage = 9; // change the value here sasi
 	useEffect(() => {
 		setLoaded(false)
-		const fetchData = async () => {
-			try {
+const fetchData = async () => {
+  try {
+    const params = {
+      pagenum: currentPage,
+      size: itemsPerPage,
+      searchTerm: searchTerm,
+      category: Array.from(genre),
+      uptoSnapp: UptoSnapp
+    };
 
-				const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall', { params: { pagenum: currentPage, size: itemsPerPage, searchTerm: searchTerm, category: Array.from(genre), uptoSnapp: UptoSnapp } });
-				//const total = response_prod.headers.get("x-total-count");
-				setProducts(response_prod.data.merchandises);
-				setCount(response_prod.data.total_count)
-				setSearchCount(response_prod.data.search_count)
-				setHprice(response_prod.data.h_price)
-				setLprice(response_prod.data.l_price)
-				console.log(genre)
-				setLoaded(true)
-			} catch (error) {
-				console.error(error);
-			}
-		};
+    const response_prod = await axios.get('http://localhost:5000/api/merchandise/getall', { params });
+    
+    const { merchandises, total_count, search_count, h_price, l_price } = response_prod.data;
+    
+    setProducts(merchandises);
+    setCount(total_count);
+    setSearchCount(search_count);
+    setHprice(h_price);
+    setLprice(l_price);
+
+    setLoaded(true);
+  } catch (error) {
+    console.error(error);
+  }
+};
 		fetchData();
 
 	}, [UptoSnapp,currentPage, searchTerm, genre]);
