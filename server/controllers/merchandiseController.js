@@ -8,7 +8,8 @@ exports.getHome  = async (req,res) => {
     var query = {}
     query.limit = 6
     const merchandises = await Merchandise.find( {},{}, query).sort({createdAt : -1 })
-    res.status(200).json({ merchandises, status: true, msg: `Merchandises fetched successfully`})
+    const featured_products = await Merchandise.find({ featured : true })
+    res.status(200).json({ merchandises, featured_products,status: true, msg: `Merchandises fetched successfully`})
   }
   catch(err) {
     console.log(err)

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link , useLocation } from 'react-router-dom';
 import Product from '../components/Product';
 import axios from "axios";
 import Header from '../components/Header';
@@ -9,13 +9,15 @@ import FilterUp from '../components/FilterUp';
 import Loader from '../components/Loader';
 
 const Catalog = (props) => {
+	const { state } = useLocation();
+	const searchTerm_home = state ? state.searchTerm_home : undefined;
 	const [products, setProducts] = useState([])
 	const [total_count, setCount] = useState(0)
 	const [search_count, setSearchCount] = useState(0)
 	const [genre, setgenre] = useState([])
 
 	//pagination 
-	const [searchTerm, setSearchTerm] = useState('')
+	const [searchTerm, setSearchTerm] = useState(searchTerm_home ? searchTerm_home : "")
 	const [currentPage, setCurrentPage] = useState(1);
 	const [h_price, setHprice] = useState(0)
 	const [l_price, setLprice] = useState(0)

@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Product from '../components/Product';
 import Loader from '../components/Loader';
 import ImgLoader from '../components/ImgLoader';
 import FullpageLoader from '../components/FullpageLoader';
+import CarouselPro from '../components/CarouselPro';
 const Home = () => {
 	const [products, setProducts] = useState([])
+	const [searchLoad, setSearchLoad] = useState(false)
 	const [productsLoaded, setLoaded] = useState(false)
-	const [searchTerm, setSearchTerm] = useState('')
+	const [featuredProducts, setFeaturedProducts] = useState([]);
+	const [searchTerm_home, setSearchTerm_home] = useState('')
+	const [search_filter, setSearchFilter] = useState([])
+	const navigate = useNavigate();
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -17,6 +22,12 @@ const Home = () => {
 				//const total = response_prod.headers.get("x-total-count");
 				setProducts(response_prod.data.merchandises);
 				setLoaded(true)
+				setFeaturedProducts(response_prod.data.featured_products);
+				setSearchLoad(false)
+				const search_filter_prod = await axios.get("http://localhost:5000/api/merchandise/getall", { params: { searchTerm: searchTerm_home } })
+				setSearchFilter(search_filter_prod.data.merchandises);
+				setSearchLoad(true)
+				console.log("hitted")
 			} catch (error) {
 				console.error(error);
 			}
@@ -24,7 +35,7 @@ const Home = () => {
 		fetchData();
 
 
-	}, []);
+	}, [searchTerm_home]);
 
 
 
@@ -54,7 +65,7 @@ const Home = () => {
 						<li className='d-inline'><Link to="connect" className="btn_access">Connect Snappcoins</Link></li>
 						<li className=''><div className="nice-select" >
 							<div className="btn_access">
-							<span className="current">Login</span></div>
+								<span className="current">Login</span></div>
 							<ul className="list">
 								<li className="option"><Link >Merchant</Link></li>
 								<li className="option"><Link >Gamer</Link></li>
@@ -95,15 +106,37 @@ const Home = () => {
 								<div className="col-lg-7">
 									<h1>Discover, Collect,<br />and Redeem Snapps!</h1>
 									<p>The Largest Redemption Platform for Gamers</p>
-									<form method="post" action="catalog" >
+									<form method="post" action="catalog" className=''>
 										<div className="row g-0 custom-search-input mx-auto">
-											<div className="col-md-9">
+											<div className="col-md-9 position-relative">
 												<div className="form-group">
-													<input className="form-control" type="text" placeholder="Search item..." />
+													<input className="form-control" type="text" placeholder="Search item..." value={searchTerm_home} onChange={(e) => { setSearchTerm_home(e.target.value) }} />
 												</div>
+												{/* Search menu */}
+													{searchTerm_home ? <div className='position-absolute start-50 translate-middle-x col-12 br-none'>
+														{searchLoad ? <div class="list-group text-start">
+															{
+																search_filter.slice(0,4).map((product) =>
+																	<button type="button" className="btn btn-lg list-group-item list-group-item-action lt br-none" onClick={(e) => {
+																		setSearchTerm_home(e.target.innerHTML)
+																		navigate("/catalog", { state: { searchTerm_home: e.target.innerHTML } })
+																	}} aria-current="true">
+																		{product.title}
+																	</button>
+
+																)
+															}
+
+														</div> : <div className='d-flex justify-content-center bg-white'><Loader /></div>}
+													</div>
+													: "" }
 											</div>
 											<div className="col-md-3">
-												<input type="submit" value="Find" />
+												<input type='submit' value="Find" onClick={(e) => {
+													e.preventDefault();
+													navigate("/catalog", { state: { searchTerm_home: searchTerm_home } })
+												}} />
+
 											</div>
 										</div>
 										<div className="search_trends text-center" style={{ display: "flex", justifyContent: "center" }}>
@@ -116,6 +149,7 @@ const Home = () => {
 												</div>
 											</ul>
 										</div>
+
 									</form>
 								</div>
 							</div>
@@ -133,184 +167,20 @@ const Home = () => {
 					</div>
 
 
-					<div className="owl-carousel owl-theme featured_carousel">
-						<div className="item">
-							<div className="strip">
-								<figure>
-									<img src="https://distil.in/demo/snappcoins/img/item-1-placeholder.png" data-src="assets/img/items/item-1.jpg" className="owl-lazy" alt="" width="533" height="400" />
-									<Link to="detail-page.html" className="strip_info">
-										<div className="item_title">
-
-											<span className="badge bg-primary">3.25  snapps</span>
-										</div>
-									</Link>
-								</figure>
-								<ul>
-									<li>
-										<Link to="author.html" className="author">
-											<div className="author_thumb veryfied"><i className="bi bi-check"></i>
-												<figure>
-													<img src="https://distil.in/demo/snappcoins/img/avatar2.jpg" data-src="assets/img/avatar2.jpg" alt="" className="owl-lazy" width="100" height="100" />
-												</figure>
-											</div>
-											<h6>JBL Noise Cancellation Pods</h6>
-										</Link>
-									</li>
-									<li>
-										<Link to="#0" className="wish_bt"><i className="bi bi-heart-fill"></i></Link> 50
-									</li>
-								</ul>
-							</div>
+					<div id='carouselItems' className="carousel slide carousel-fade" data-bs-ride="carousel">
+						<div className='carousel-inner'>
+							{featuredProducts.map((product, index) => {
+								return <CarouselPro index={index} price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} />
+							})}
 						</div>
-
-						<div className="item">
-							<div className="strip">
-								<figure>
-									<img src="https://distil.in/demo/snappcoins/img/item-3.png" data-src="assets/img/items/item-3.jpg" className="owl-lazy" alt="" width="533" height="400" />
-									<Link to="detail-page.html" className="strip_info">
-										<div className="item_title">
-
-											<span className="badge bg-primary">3.25  snapps</span>
-										</div>
-									</Link>
-								</figure>
-								<ul>
-									<li>
-										<Link to="author.html" className="author">
-											<div className="author_thumb veryfied"><i className="bi bi-check"></i>
-												<figure>
-													<img src="https://distil.in/demo/snappcoins/img/avatar3.png" data-src="img/avatar3.jpg" alt="" className="owl-lazy" width="100" height="100" />
-												</figure>
-											</div>
-											<h6>Noise 6S Smartwatch</h6>
-										</Link>
-									</li>
-									<li>
-										<Link to="#0" className="wish_bt"><i className="bi bi-heart-fill"></i></Link> 50
-									</li>
-								</ul>
-							</div>
-						</div>
-
-						<div className="item">
-							<div className="strip">
-								<div data-countdown="2022/03/15" className="countdown"></div>
-								<figure>
-									<img src="https://distil.in/demo/snappcoins/img/item-4.png" data-src="assets/img/items/item-4.jpg" className="owl-lazy" alt="" width="533" height="400" />
-									<Link to="detail-page.html" className="strip_info">
-										<div className="item_title">
-
-											<span className="badge bg-primary">3.25  snapps</span>
-										</div>
-									</Link>
-								</figure>
-								<ul>
-									<li>
-										<Link to="author.html" className="author">
-											<div className="author_thumb">
-												<figure>
-													<img src="https://distil.in/demo/snappcoins/img/avatar1.jpg" data-src="assets/img/avatar1.jpg" alt="" className="owl-lazy" width="100" height="100" />
-												</figure>
-											</div>
-											<h6>John Player Wayfarer</h6>
-										</Link>
-									</li>
-									<li>
-										<Link to="#0" className="wish_bt"><i className="bi bi-heart-fill"></i></Link> 50
-									</li>
-								</ul>
-							</div>
-						</div>
-
-						<div className="item">
-							<div className="strip">
-								<figure>
-									<img src="https://distil.in/demo/snappcoins/img/item-5.png" data-src="assets/img/items/item-5.jpg" className="owl-lazy" alt="" width="533" height="400" />
-									<Link to="author.html" className="author">
-									</Link>
-									<Link to="detail-page.html" className="strip_info">
-										<div className="item_title">
-
-											<span className="badge bg-primary">3.25  snapps</span>
-										</div>
-									</Link>
-								</figure>
-								<ul>
-									<li>
-										<Link to="author.html" className="author">
-											<div className="author_thumb veryfied"><i className="bi bi-check"></i>
-												<figure>
-													<img src="https://distil.in/demo/snappcoins/img/avatar4.jpg" data-src="assets/img/avatar4.jpg" alt="" className="owl-lazy" width="100" height="100" />
-												</figure>
-											</div>
-											<h6>@Tomas_Clue</h6>
-										</Link>
-									</li>
-									<li>
-										<Link to="#0" className="wish_bt"><i className="bi bi-heart-fill"></i></Link> 50
-									</li>
-								</ul>
-							</div>
-						</div>
-
-						<div className="item">
-							<div className="strip">
-								<figure>
-									<img src="https://distil.in/demo/snappcoins/img/item-6.jpg" data-src="assets/img/items/item-6.jpg" className="owl-lazy" alt="" width="533" height="400" />
-									<Link to="detail-page.html" className="strip_info">
-										<div className="item_title">
-
-											<span className="badge bg-primary">3.25  snapps</span>
-										</div>
-									</Link>
-								</figure>
-								<ul>
-									<li>
-										<Link to="author.html" className="author">
-											<div className="author_thumb">
-												<figure>
-													<img src="https://distil.in/demo/snappcoins/img/avatar1.jpg" data-src="assets/img/avatar1.jpg" alt="" className="owl-lazy" width="100" height="100" />
-												</figure>
-											</div>
-											<h6>@Pixel_inc</h6>
-										</Link>
-									</li>
-									<li>
-										<Link to="#0" className="wish_bt"><i className="bi bi-heart-fill"></i></Link> 50
-									</li>
-								</ul>
-							</div>
-						</div>
-
-						<div className="item">
-							<div className="strip">
-								<figure>
-									<img src="assets/img/items/item-1-placeholder.png" data-src="assets/img/items/item-7.jpg" className="owl-lazy" alt="" width="598" height="400" />
-									<Link to="detail-page.html" className="strip_info">
-										<div className="item_title">
-
-											<span className="badge bg-primary">3.25  snapps</span>
-										</div>
-									</Link>
-								</figure>
-								<ul>
-									<li>
-										<Link to="author.html" className="author">
-											<div className="author_thumb veryfied"><i className="bi bi-check"></i>
-												<figure>
-													<img src="https://distil.in/demo/snappcoins/img/avatar3.jpg" data-src="img/avatar3.jpg" alt="" className="owl-lazy" width="100" height="100" />
-												</figure>
-											</div>
-											<h6>@Marc_Osl</h6>
-										</Link>
-									</li>
-									<li>
-										<Link to="#0" className="wish_bt"><i className="bi bi-heart-fill"></i></Link> 50
-									</li>
-								</ul>
-							</div>
-						</div>
-
+						<button className="carousel-control-prev" type="button" data-bs-target="#carouselItems" data-bs-slide="prev">
+							<span className="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span className="visually-hidden">Previous</span>
+						</button>
+						<button className="carousel-control-next" type="button" data-bs-target="#carouselItems" data-bs-slide="next">
+							<span className="carousel-control-next-icon" aria-hidden="true"></span>
+							<span className="visually-hidden">Next</span>
+						</button>
 					</div>
 
 					<p className="text-center mt-4"><a to="catalog" className="btn_1 medium pulse_bt">Start Redeeming</a></p>
