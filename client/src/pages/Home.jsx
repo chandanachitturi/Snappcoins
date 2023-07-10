@@ -183,7 +183,7 @@ const Home = () => {
 						</button>
 					</div>
 
-					<p className="text-center mt-4"><a to="catalog" className="btn_1 medium pulse_bt">Start Redeeming</a></p>
+					<p className="text-center mt-4"><Link to="/catalog"> <a className="btn_1 medium pulse_bt">Start Redeeming</a></Link></p>
 				</div>
 
 
