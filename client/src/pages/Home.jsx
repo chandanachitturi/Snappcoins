@@ -8,11 +8,11 @@ import FullpageLoader from '../components/FullpageLoader';
 import CarouselPro from '../components/CarouselPro';
 const Home = () => {
 	const [products, setProducts] = useState([])
-	const [searchLoad, setSearchLoad] = useState(false)
+	// const [searchLoad, setSearchLoad] = useState(false)
 	const [productsLoaded, setLoaded] = useState(false)
 	const [featuredProducts, setFeaturedProducts] = useState([]);
 	const [searchTerm_home, setSearchTerm_home] = useState('')
-	const [search_filter, setSearchFilter] = useState([])
+	// const [search_filter, setSearchFilter] = useState([])
 	const navigate = useNavigate();
 	useEffect(() => {
 		const fetchData = async () => {
@@ -23,10 +23,10 @@ const Home = () => {
 				setProducts(response_prod.data.merchandises);
 				setLoaded(true)
 				setFeaturedProducts(response_prod.data.featured_products);
-				setSearchLoad(false)
-				const search_filter_prod = await axios.get("http://localhost:5000/api/merchandise/getall", { params: { searchTerm: searchTerm_home } })
-				setSearchFilter(search_filter_prod.data.merchandises);
-				setSearchLoad(true)
+				// setSearchLoad(false)
+				// const search_filter_prod = await axios.get("http://localhost:5000/api/merchandise/getall", { params: { searchTerm: searchTerm_home } })
+				// setSearchFilter(search_filter_prod.data.merchandises);
+				// setSearchLoad(true)
 				console.log("hitted")
 			} catch (error) {
 				console.error(error);
@@ -113,7 +113,7 @@ const Home = () => {
 													<input className="form-control" type="text" placeholder="Search item..." value={searchTerm_home} onChange={(e) => { setSearchTerm_home(e.target.value) }} />
 												</div>
 												{/* Search menu */}
-													{searchTerm_home ? <div className='position-absolute start-50 translate-middle-x col-12 br-none'>
+													{/* {searchTerm_home ? <div className='position-absolute start-50 translate-middle-x col-12 br-none'>
 														{searchLoad ? <div class="list-group text-start">
 															{
 																search_filter.slice(0,4).map((product) =>
@@ -129,7 +129,7 @@ const Home = () => {
 
 														</div> : <div className='d-flex justify-content-center bg-white'><Loader /></div>}
 													</div>
-													: "" }
+													: "" } */}
 											</div>
 											<div className="col-md-3">
 												<input type='submit' value="Find" onClick={(e) => {
